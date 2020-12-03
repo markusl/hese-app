@@ -45,7 +45,7 @@ export class HeseInfraStack extends cdk.Stack {
       sourceCodeProvider: new amplify.GitHubSourceCodeProvider({
         owner: 'markusl',
         repository: 'hese-app',
-        oauthToken: cdk.SecretValue.secretsManager('GITHUB_OAUTH_TOKEN'),
+        oauthToken: cdk.SecretValue.secretsManager(`arn:aws:secretsmanager:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:secret:GITHUB_OAUTH_TOKEN-zSOXUo`),
       }),
     });
     amplifyApp.addDomain('olmi.be', {
