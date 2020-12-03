@@ -20,7 +20,11 @@ export class HeseInfraStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const repository = new codecommit.Repository(this, 'HeseAppRepo', { repositoryName: 'hese-app' });
+    const repository = 'hese-app';
+    const githubConfig = {
+      owner: 'markusl',
+      oauthToken: cdk.SecretValue.secretsManager(`arn:aws:secretsmanager:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:secret:GITHUB_OAUTH_TOKEN-zSOXUo`),
+    };
 
     const sourceArtifact = new codepipeline.Artifact();
     const cloudAssemblyArtifact = new codepipeline.Artifact();
@@ -28,10 +32,11 @@ export class HeseInfraStack extends cdk.Stack {
       cloudAssemblyArtifact,
       crossAccountKeys: false,
   
-      sourceAction: new codepipeline_actions.CodeCommitSourceAction({
+      sourceAction: new codepipeline_actions.GitHubSourceAction({
         actionName: 'Source',
-        repository,
+        repo: repository,
         output: sourceArtifact,
+        ...githubConfig,
       }),
   
       synthAction: pipelines.SimpleSynthAction.standardNpmSynth({
@@ -43,9 +48,8 @@ export class HeseInfraStack extends cdk.Stack {
 
     const amplifyApp = new amplify.App(this, 'hese-react-app', {
       sourceCodeProvider: new amplify.GitHubSourceCodeProvider({
-        owner: 'markusl',
-        repository: 'hese-app',
-        oauthToken: cdk.SecretValue.secretsManager(`arn:aws:secretsmanager:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:secret:GITHUB_OAUTH_TOKEN-zSOXUo`),
+        repository,
+        ...githubConfig,
       }),
     });
     amplifyApp.addDomain('olmi.be', {
