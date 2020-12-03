@@ -1,0 +1,33 @@
+.stats-list {
+  margin-top: 24px;
+  width: 100%;
+  flex-direction: row;
+  display: flex;
+  height: 76px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.stats-row {
+  text-align: center;
+  margin-bottom: 6px;
+  border: 1px solid #e3e3e3;
+  border-radius: 3px;margin-right: 12px;
+  padding: 12px 24px;
+}
+.stats-row:hover{cursor:pointer;background:rgba(60,90,100,.06)}
+.stats-row p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stats-row-broken {
+  font-weight: 700;
+  font-size: 16px;
+  margin: 0;
+}
+.stats-row-city {
+  font-size: 12px;
+  font-weight: 300;
+  margin: 0;
+}

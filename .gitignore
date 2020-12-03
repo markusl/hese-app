@@ -1,0 +1,14 @@
+node_modules
+build
+*.d.ts
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+# Parcel default cache directory
+.parcel-cache
+
+#amplify
+build/
+dist/
+node_modules/

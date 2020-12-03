@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SHJ6P0R2SB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-SHJ6P0R2SB');
+  </script>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Saako Hesburgerista juuri nyt jäätelöä tai pirtelöä?" />
+  <meta name="keywords" content="hesburger ice cream milkshake status" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.png" />
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <title>Hesburger Jäätelö ja Pirtelö Status</title>
+  <style>
+    body {
+      height: 100%;
+      font-family: "afont", sans-serif !important;
+      line-height: 1.5;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    #header,
+    #footer {
+      display: block;
+      font-size: 18px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      background: #000;
+      width: 100%;
+      text-align: center;
+      color: #f5f5f5;
+    }
+
+    #footer a {
+      color: #f5f5f5;
+    }
+  </style>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="header">🥤 Onko Hesburgerin jäätelökone käytettävissä?
+    &mdash;Feedback?
+    <a href="https://twitter.com/markuslindqv" style="cursor:pointer">
+      <button class="js-sharing-popup-twitter" data-share-text="How to add a follow button to your website"
+        data-share-url="https://help.twitter.com/en/using-twitter/add-follow-button-to-website" data-share-via=""
+        data-share-hashtags="" data-share-related="">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+          class="twtr-icon  twtr-color-fill--blue-dark  has-hover">
+          <path opacity="0" d="M0 0h24v24H0z"></path>
+          <path
+            d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z">
+          </path>
+        </svg>
+      </button>
+    </a>
+  </div>
+  <div id="root"></div>
+  <div id="footer">Inspired by <a href="https://mcbroken.com/">McBroken</a></div>
+</body>
+
+</html>
