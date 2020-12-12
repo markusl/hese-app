@@ -1,18 +1,19 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as cdk from '@aws-cdk/core';
-import * as codecommit from '@aws-cdk/aws-codecommit';
-import * as codepipeline from '@aws-cdk/aws-codepipeline';
-import * as amplify from '@aws-cdk/aws-amplify';
-import * as pipelines from '@aws-cdk/pipelines';
-import * as codepipeline_actions from '@aws-cdk/aws-codepipeline-actions';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as s3 from '@aws-cdk/aws-s3';
-import * as lambda_nodejs from '@aws-cdk/aws-lambda-nodejs';
-import * as events from '@aws-cdk/aws-events';
-import * as targets from '@aws-cdk/aws-events-targets';
-import * as apigw2 from '@aws-cdk/aws-apigatewayv2';
-import * as apigw2_integrations from '@aws-cdk/aws-apigatewayv2-integrations';
+import * as cdk from 'aws-cdk-lib';
+import {
+  aws_s3 as s3,
+  aws_codepipeline as codepipeline,
+  aws_amplify as amplify,
+  pipelines,
+  aws_codepipeline_actions as codepipeline_actions,
+  aws_lambda as lambda,
+  aws_lambda_nodejs as lambda_nodejs,
+  aws_events as events,
+  aws_events_targets as targets,
+  aws_apigatewayv2 as apigw2,
+  aws_apigatewayv2_integrations as apigw2_integrations
+} from 'aws-cdk-lib';
 
 const everyFifteenMinutes = events.Schedule.expression('cron(0/15 * * * ? *)');
 
@@ -31,14 +32,14 @@ export class HeseInfraStack extends cdk.Stack {
     new pipelines.CdkPipeline(this, 'HeseInfraPipeline', {
       cloudAssemblyArtifact,
       crossAccountKeys: false,
-  
+
       sourceAction: new codepipeline_actions.GitHubSourceAction({
         actionName: 'Source',
         repo: repository,
         output: sourceArtifact,
         ...githubConfig,
       }),
-  
+
       synthAction: pipelines.SimpleSynthAction.standardNpmSynth({
         sourceArtifact,
         cloudAssemblyArtifact,
@@ -73,7 +74,7 @@ export class HeseInfraStack extends cdk.Stack {
     const heseStatusUpdateFunction = new lambda_nodejs.NodejsFunction(this, 'HeseStatusUpdate', {
       entry,
       runtime: lambda.Runtime.NODEJS_12_X,
-      minify: true,
+      bundling: { minify: true, },
       memorySize: 256,
       timeout: cdk.Duration.minutes(1),
       environment: {
@@ -90,7 +91,7 @@ export class HeseInfraStack extends cdk.Stack {
     const httpApi = new apigw2.HttpApi(this, 'HttpApi');
     httpApi.addRoutes({
       path: '/status',
-      methods: [ apigw2.HttpMethod.GET ],
+      methods: [apigw2.HttpMethod.GET],
       integration: new apigw2_integrations.LambdaProxyIntegration({
         handler: heseStatusUpdateFunction,
       }),

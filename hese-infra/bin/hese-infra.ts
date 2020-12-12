@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import * as cdk from '@aws-cdk/core';
+import * as cdk from 'aws-cdk-lib';
 import { HeseInfraStack } from '../lib/hese-infra-stack';
 
 const app = new cdk.App();
