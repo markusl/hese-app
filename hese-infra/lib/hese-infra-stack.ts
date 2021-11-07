@@ -74,6 +74,7 @@ export class HeseInfraStack extends cdk.Stack {
     });
 
     statusBucket.grantReadWrite(heseStatusUpdateFunction);
+    statusBucket.grantPutAcl(heseStatusUpdateFunction);
 
     const rule = new events.Rule(this, 'Rule', { schedule: everyFifteenMinutes });
     rule.addTarget(new targets.LambdaFunction(heseStatusUpdateFunction));
