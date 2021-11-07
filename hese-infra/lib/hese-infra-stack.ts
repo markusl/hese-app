@@ -1,24 +1,21 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import { Construct } from 'constructs';
 import * as cdk from 'aws-cdk-lib';
 import {
   aws_s3 as s3,
-  aws_codepipeline as codepipeline,
-  aws_amplify as amplify,
-  pipelines,
-  aws_codepipeline_actions as codepipeline_actions,
   aws_lambda as lambda,
   aws_lambda_nodejs as lambda_nodejs,
   aws_events as events,
   aws_events_targets as targets,
-  aws_apigatewayv2 as apigw2,
-  aws_apigatewayv2_integrations as apigw2_integrations
+  pipelines,
 } from 'aws-cdk-lib';
+import * as amplify from '@aws-cdk/aws-amplify-alpha';
+import * as apigw2 from '@aws-cdk/aws-apigatewayv2-alpha';
+import * as apigw2_integrations from '@aws-cdk/aws-apigatewayv2-integrations-alpha';
 
 const everyFifteenMinutes = events.Schedule.expression('cron(0/15 * * * ? *)');
 
 export class HeseInfraStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     const repository = 'hese-app';
@@ -27,23 +24,23 @@ export class HeseInfraStack extends cdk.Stack {
       oauthToken: cdk.SecretValue.secretsManager(`arn:aws:secretsmanager:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:secret:GITHUB_OAUTH_TOKEN-zSOXUo`),
     };
 
-    const sourceArtifact = new codepipeline.Artifact();
-    const cloudAssemblyArtifact = new codepipeline.Artifact();
-    new pipelines.CdkPipeline(this, 'HeseInfraPipeline', {
-      cloudAssemblyArtifact,
+    const authentication = cdk.SecretValue.secretsManager(`arn:aws:secretsmanager:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:secret:GITHUB_OAUTH_TOKEN-zSOXUo`);
+
+    new pipelines.CodePipeline(this, 'HeseInfraPipeline', {
       crossAccountKeys: false,
-
-      sourceAction: new codepipeline_actions.GitHubSourceAction({
-        actionName: 'Source',
-        repo: repository,
-        output: sourceArtifact,
-        ...githubConfig,
-      }),
-
-      synthAction: pipelines.SimpleSynthAction.standardNpmSynth({
-        sourceArtifact,
-        cloudAssemblyArtifact,
-        subdirectory: 'hese-infra',
+      synth: new pipelines.ShellStep('Synth', {
+        // Use a connection created using the AWS console to authenticate to GitHub
+        // Other sources are available.
+        input: pipelines.CodePipelineSource.gitHub('markusl/hese-app', 'master', {
+          authentication,
+        }),
+        commands: [
+          'cd hese-infra',
+          'npm ci',
+          'npm run build',
+          'npx cdk synth',
+        ],
+        primaryOutputDirectory: 'hese-infra',
       }),
     });
 
@@ -66,14 +63,8 @@ export class HeseInfraStack extends cdk.Stack {
       allowedOrigins: ['*'],
     });
 
-    // NodejsFunction workaround..
-    const entry = fs.existsSync(path.join(__dirname, 'index.handler.ts'))
-      ? path.join(__dirname, 'index.handler.ts')
-      : path.join(__dirname, 'index.handler.js');
-
     const heseStatusUpdateFunction = new lambda_nodejs.NodejsFunction(this, 'HeseStatusUpdate', {
-      entry,
-      runtime: lambda.Runtime.NODEJS_12_X,
+      runtime: lambda.Runtime.NODEJS_14_X,
       bundling: { minify: true, },
       memorySize: 256,
       timeout: cdk.Duration.minutes(1),

@@ -1,10 +1,12 @@
 #!/usr/bin/env node
-import * as cdk from 'aws-cdk-lib';
+import { App } from 'aws-cdk-lib';
 import { HeseInfraStack } from '../lib/hese-infra-stack';
 
-const app = new cdk.App();
+const app = new App();
 new HeseInfraStack(app, 'HeseInfraStack', {
   env: {
     region: 'eu-west-1',
   }
 });
+
+app.synth();
