@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import axios from 'axios';
 import { Product, UnavailabileProducts, RestaurantInfo } from './heseTypes';
 import { allRestaurants } from './restaurants';
 
@@ -23,9 +23,10 @@ const headers = {
 
 // Gets the unavailability status for a selected item
 const getAvailability = async (restaurantId: number, productId: string) => {
-  const unavailabilities = await (await fetch(unavailabilitiesApi + restaurantId, {
+  const url = unavailabilitiesApi + restaurantId;
+  const unavailabilities = (await axios.get<UnavailabileProducts>(url, {
     headers,
-  })).json() as UnavailabileProducts;
+  })).data;
   const unavailabilityItem = Object.keys(unavailabilities.products).find((k) => k === productId);
   const isAvailable = unavailabilityItem ? !unavailabilities.products[productId].temporarilyOutOfStock : true;
   const isInSelection = unavailabilityItem ? !unavailabilities.products[productId].notInSelection : true;
@@ -37,9 +38,10 @@ const getAvailability = async (restaurantId: number, productId: string) => {
 
 // Collects the availabilities for a given product across all given restaurants
 const getAvailabilities = async (restaurants: RestaurantInfo[], productId: string) => {
-  const products = await (await fetch(productApi + productId, {
+  const url = productApi + productId;
+  const products = (await axios.get<[Product]>(url, {
     headers
-  })).json() as [Product];
+  })).data;
   const product = products[0];
   return await Promise.all(restaurants.map(async (restaurant) => {
     const { isAvailable, isInSelection } = await getAvailability(restaurant.id, productId);
