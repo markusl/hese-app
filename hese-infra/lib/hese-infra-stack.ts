@@ -24,15 +24,13 @@ export class HeseInfraStack extends cdk.Stack {
       oauthToken: cdk.SecretValue.secretsManager(`arn:aws:secretsmanager:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:secret:GITHUB_OAUTH_TOKEN-zSOXUo`),
     };
 
-    const authentication = cdk.SecretValue.secretsManager(`arn:aws:secretsmanager:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:secret:GITHUB_OAUTH_TOKEN-zSOXUo`);
-
     new pipelines.CodePipeline(this, 'HeseInfraPipeline', {
       crossAccountKeys: false,
       synth: new pipelines.ShellStep('Synth', {
         // Use a connection created using the AWS console to authenticate to GitHub
         // Other sources are available.
-        input: pipelines.CodePipelineSource.gitHub('markusl/hese-app', 'master', {
-          authentication,
+        input: pipelines.CodePipelineSource.connection('markusl/hese-app', 'master', {
+          connectionArn: 'arn:aws:codestar-connections:eu-west-1:872821666058:connection/2176abff-fac4-4c5d-87e8-0cc53551ab98',
         }),
         commands: [
           'cd hese-infra',
