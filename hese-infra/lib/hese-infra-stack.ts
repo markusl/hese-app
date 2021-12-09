@@ -23,22 +23,22 @@ export class HeseInfraStack extends cdk.Stack {
       owner: 'markusl',
       oauthToken: cdk.SecretValue.secretsManager(`arn:aws:secretsmanager:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:secret:GITHUB_OAUTH_TOKEN-zSOXUo`),
     };
+    // Use a connection created using the AWS console to authenticate to GitHub
+    const input = pipelines.CodePipelineSource.connection('markusl/hese-app', 'master', {
+      connectionArn: 'arn:aws:codestar-connections:eu-west-1:872821666058:connection/2176abff-fac4-4c5d-87e8-0cc53551ab98',
+    });
 
     new pipelines.CodePipeline(this, 'HeseInfraPipeline', {
       crossAccountKeys: false,
       synth: new pipelines.ShellStep('Synth', {
-        // Use a connection created using the AWS console to authenticate to GitHub
-        // Other sources are available.
-        input: pipelines.CodePipelineSource.connection('markusl/hese-app', 'master', {
-          connectionArn: 'arn:aws:codestar-connections:eu-west-1:872821666058:connection/2176abff-fac4-4c5d-87e8-0cc53551ab98',
-        }),
+        input,
         commands: [
           'cd hese-infra',
           'npm ci',
-          'npm run build',
+          'npm run test',
           'npx cdk synth',
         ],
-        primaryOutputDirectory: 'hese-infra',
+        primaryOutputDirectory: 'hese-infra/cdk.out',
       }),
     });
 
@@ -66,6 +66,7 @@ export class HeseInfraStack extends cdk.Stack {
       bundling: { minify: true, },
       memorySize: 256,
       timeout: cdk.Duration.minutes(1),
+      architecture: lambda.Architecture.ARM_64,
       environment: {
         BUCKET_NAME: statusBucket.bucketName,
       },
@@ -79,12 +80,11 @@ export class HeseInfraStack extends cdk.Stack {
 
     // An additional endpoint to manually trigger the status update
     const httpApi = new apigw2.HttpApi(this, 'HttpApi');
+    const integration = new apigw2_integrations.HttpLambdaIntegration('integration', heseStatusUpdateFunction);
     httpApi.addRoutes({
       path: '/status',
       methods: [apigw2.HttpMethod.GET],
-      integration: new apigw2_integrations.LambdaProxyIntegration({
-        handler: heseStatusUpdateFunction,
-      }),
+      integration,
     });
   }
 }
