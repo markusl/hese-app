@@ -1,5 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
-import { SynthUtils } from '@aws-cdk/assert';
+import { Template } from 'aws-cdk-lib/assertions';
 import { HeseInfraStack } from '../lib/hese-infra-stack';
 import { snapshotSerializer } from './util';
 
@@ -9,5 +9,5 @@ test('HeseInfraStack synthetizes expected template', async () => {
   const app = new cdk.App();
   const stack = new HeseInfraStack(app, 'infra');
 
-  expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
+  expect(Template.fromStack(stack)).toMatchSnapshot();
 });
