@@ -65,7 +65,7 @@ const Map = () => {
 
       const isWorking = restaurant.hasIceCream.product.isAvailable && restaurant.hasShake.product.isAvailable;
       const showItem = onlyBroken ? !isWorking : (onlyWorking ? isWorking : false);
-      if (showItem || (!onlyBroken && !onlyWorking)) {
+      if (showItem || (!onlyBroken && !onlyWorking)) {
         new mapboxgl.Marker(getIceCreamIcon(restaurant.id, isWorking))
           .setLngLat([restaurant.address.longitude, restaurant.address.latitude])
           .setPopup(popup)
@@ -90,7 +90,7 @@ const Map = () => {
           checked={onlyBroken}
           onChange={e => {setOnlyBroken(e.target.checked); setOnlyWorking(false)}}
         />
-        <label for="onlyBroken">Vain rikkinäiset</label>
+        <label htmlFor="onlyBroken">Vain rikkinäiset</label>
         <input
           id="onlyWorking"
           type="checkbox"
@@ -99,7 +99,7 @@ const Map = () => {
           checked={onlyWorking}
           onChange={e => {setOnlyWorking(e.target.checked); setOnlyBroken(false)}}
         />
-        <label for="onlyWorking">Vain toimivat</label>
+        <label htmlFor="onlyWorking">Vain toimivat</label>
       </div>
     </div>
   );
