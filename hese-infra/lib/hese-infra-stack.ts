@@ -62,7 +62,7 @@ export class HeseInfraStack extends cdk.Stack {
     });
 
     const heseStatusUpdateFunction = new lambda_nodejs.NodejsFunction(this, 'HeseStatusUpdate', {
-      runtime: lambda.Runtime.NODEJS_14_X,
+      runtime: lambda.Runtime.NODEJS_16_X,
       bundling: { minify: true, },
       memorySize: 256,
       timeout: cdk.Duration.minutes(1),
