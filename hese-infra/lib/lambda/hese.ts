@@ -22,18 +22,28 @@ const headers = {
 };
 
 // Gets the unavailability status for a selected item
-const getAvailability = async (restaurantId: number, productId: string) => {
-  const url = unavailabilitiesApi + restaurantId;
-  const unavailabilities = (await axios.get<UnavailabileProducts>(url, {
-    headers,
-  })).data;
-  const unavailabilityItem = Object.keys(unavailabilities.products).find((k) => k === productId);
-  const isAvailable = unavailabilityItem ? !unavailabilities.products[productId].temporarilyOutOfStock : true;
-  const isInSelection = unavailabilityItem ? !unavailabilities.products[productId].notInSelection : true;
-  return {
-    isAvailable,
-    isInSelection,
-  };
+const getAvailability = async (restaurant: RestaurantInfo, productId: string) => {
+  const url = unavailabilitiesApi + restaurant.id;
+  try {
+    const unavailabilities = (await axios.get<UnavailabileProducts>(url, {
+      headers,
+    })).data;
+    const unavailabilityItem = Object.keys(unavailabilities.products).find((k) => k === productId);
+    const isAvailable = unavailabilityItem ? !unavailabilities.products[productId].temporarilyOutOfStock : true;
+    const isInSelection = unavailabilityItem ? !unavailabilities.products[productId].notInSelection : true;
+    return {
+      isClosed: false,
+      isAvailable,
+      isInSelection,
+    };
+  } catch(e) {
+    console.error(`Error fetching availabilities for ${restaurant.id} ${restaurant.name}`);
+    return {
+      isClosed: true,
+      isAvailable: false,
+      isInSelection: false,
+    };
+  }
 }
 
 // Collects the availabilities for a given product across all given restaurants
@@ -44,9 +54,10 @@ const getAvailabilities = async (restaurants: RestaurantInfo[], productId: strin
   })).data;
   const product = products[0];
   return await Promise.all(restaurants.map(async (restaurant) => {
-    const { isAvailable, isInSelection } = await getAvailability(restaurant.id, productId);
+    const { isClosed, isAvailable, isInSelection } = await getAvailability(restaurant, productId);
     return {
       restaurantId: restaurant.id,
+      isClosed,
       product: {
         isAvailable,
         isInSelection,
@@ -57,7 +68,7 @@ const getAvailabilities = async (restaurants: RestaurantInfo[], productId: strin
 }
 
 // Choose restaurants from a given country only
-const filterRestaurantsByCountry = async (countryCode: string): Promise<RestaurantInfo[]> => {
+const filterRestaurantsByCountry = (countryCode: string): RestaurantInfo[] => {
   return allRestaurants
     .filter((restaurant) => restaurant.address.countryCode === countryCode)
     .map((restaurant) => ({
@@ -67,8 +78,7 @@ const filterRestaurantsByCountry = async (countryCode: string): Promise<Restaura
     }));
 }
 
-const getHeseIceCreamStatus = async (countryCode: string) => {
-  const restaurants = await filterRestaurantsByCountry(countryCode);
+const getHeseIceCreamStatus = async (restaurants: RestaurantInfo[]) => {
   const cities = Array.from(new Set(restaurants.map((r) => r.address.city)));
 
   const iceCreamAvailabilities = await getAvailabilities(restaurants, iceCreamItem);
@@ -83,7 +93,8 @@ const getHeseIceCreamStatus = async (countryCode: string) => {
       return ({
         hasIceCream: hasIceCream[0],
         hasShake: hasShake[0],
-        ...restaurant
+        isClosed: hasIceCream[0].isClosed,
+        ...restaurant,
       });
     })
   });
@@ -101,4 +112,5 @@ const getHeseIceCreamStatus = async (countryCode: string) => {
   };
 };
 
-export const getHeseIceCreamStatusFinland = () => getHeseIceCreamStatus(countryCodeFinland);
+export const getHeseIceCreamStatusFinland = () =>
+  getHeseIceCreamStatus(filterRestaurantsByCountry(countryCodeFinland));
