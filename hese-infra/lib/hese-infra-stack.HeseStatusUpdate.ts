@@ -1,5 +1,6 @@
 import { getHeseIceCreamStatusFinland } from './lambda/hese';
 import { S3 } from '@aws-sdk/client-s3';
+import * as zlib from 'zlib';
 
 const bucket = process.env.BUCKET_NAME ?? '';
 const s3 = new S3({ });
@@ -14,8 +15,8 @@ export const handler = async (event: any) => {
     // Store a status snapshot
     await s3.putObject({
       Bucket: bucket,
-      Key: new Date().toISOString() + '-status.json',
-      Body: statusJson,
+      Key: new Date().toISOString() + '-status.json.gz',
+      Body: zlib.gzipSync(statusJson),
     });
 
     // Store a publicly readable version of the latest status
