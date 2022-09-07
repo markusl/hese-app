@@ -89,7 +89,7 @@ Object {
                 ],
                 "RoleArn": Object {
                   "Fn::GetAtt": Array [
-                    "HeseInfraPipelineBuildSynthCodePipelineActionRole46474618",
+                    "HeseInfraPipelineCodeBuildActionRole5463EFD7",
                     "Arn",
                   ],
                 },
@@ -121,7 +121,7 @@ Object {
                 "Name": "SelfMutate",
                 "RoleArn": Object {
                   "Fn::GetAtt": Array [
-                    "HeseInfraPipelineUpdatePipelineSelfMutateCodePipelineActionRole48196EDD",
+                    "HeseInfraPipelineCodeBuildActionRole5463EFD7",
                     "Arn",
                   ],
                 },
@@ -410,12 +410,17 @@ Object {
       },
       "Type": "AWS::IAM::Policy",
     },
-    "HeseInfraPipelineBuildSynthCodePipelineActionRole46474618": Object {
+    "HeseInfraPipelineCodeBuildActionRole5463EFD7": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
             Object {
               "Action": "sts:AssumeRole",
+              "Condition": Object {
+                "Bool": Object {
+                  "aws:ViaAWSService": "codepipeline.amazonaws.com",
+                },
+              },
               "Effect": "Allow",
               "Principal": Object {
                 "AWS": Object {
@@ -442,7 +447,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "HeseInfraPipelineBuildSynthCodePipelineActionRoleDefaultPolicyE6A6CFE4": Object {
+    "HeseInfraPipelineCodeBuildActionRoleDefaultPolicyE2B3FC80": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -460,13 +465,27 @@ Object {
                 ],
               },
             },
+            Object {
+              "Action": Array [
+                "codebuild:BatchGetBuilds",
+                "codebuild:StartBuild",
+                "codebuild:StopBuild",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "HeseInfraPipelineUpdatePipelineSelfMutationD83C5804",
+                  "Arn",
+                ],
+              },
+            },
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "HeseInfraPipelineBuildSynthCodePipelineActionRoleDefaultPolicyE6A6CFE4",
+        "PolicyName": "HeseInfraPipelineCodeBuildActionRoleDefaultPolicyE2B3FC80",
         "Roles": Array [
           Object {
-            "Ref": "HeseInfraPipelineBuildSynthCodePipelineActionRole46474618",
+            "Ref": "HeseInfraPipelineCodeBuildActionRole5463EFD7",
           },
         ],
       },
@@ -545,17 +564,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "HeseInfraPipelineBuildSynthCodePipelineActionRole46474618",
-                  "Arn",
-                ],
-              },
-            },
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "HeseInfraPipelineUpdatePipelineSelfMutateCodePipelineActionRole48196EDD",
+                  "HeseInfraPipelineCodeBuildActionRole5463EFD7",
                   "Arn",
                 ],
               },
@@ -678,68 +687,6 @@ Object {
         "Roles": Array [
           Object {
             "Ref": "HeseInfraPipelineSourcemarkuslheseappCodePipelineActionRole27EDF73B",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "HeseInfraPipelineUpdatePipelineSelfMutateCodePipelineActionRole48196EDD": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      "arn:",
-                      Object {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":iam::",
-                      Object {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
-                    ],
-                  ],
-                },
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "HeseInfraPipelineUpdatePipelineSelfMutateCodePipelineActionRoleDefaultPolicy3FA454CF": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
-                "codebuild:BatchGetBuilds",
-                "codebuild:StartBuild",
-                "codebuild:StopBuild",
-              ],
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "HeseInfraPipelineUpdatePipelineSelfMutationD83C5804",
-                  "Arn",
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "HeseInfraPipelineUpdatePipelineSelfMutateCodePipelineActionRoleDefaultPolicy3FA454CF",
-        "Roles": Array [
-          Object {
-            "Ref": "HeseInfraPipelineUpdatePipelineSelfMutateCodePipelineActionRole48196EDD",
           },
         ],
       },
