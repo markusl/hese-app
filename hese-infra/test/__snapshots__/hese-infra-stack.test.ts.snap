@@ -1,57 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HeseInfraStack synthetizes expected template 1`] = `
-Object {
-  "Parameters": Object {
-    "BootstrapVersion": Object {
+{
+  "Parameters": {
+    "BootstrapVersion": {
       "Default": "/cdk-bootstrap/hnb659fds/version",
       "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
       "Type": "AWS::SSM::Parameter::Value<String>",
     },
   },
-  "Resources": Object {
-    "HeseInfraPipeline2802B9AF": Object {
-      "DependsOn": Array [
+  "Resources": {
+    "HeseInfraPipeline2802B9AF": {
+      "DependsOn": [
         "HeseInfraPipelineRoleDefaultPolicy9CD0A2E3",
         "HeseInfraPipelineRole42FEB153",
       ],
-      "Properties": Object {
-        "ArtifactStore": Object {
-          "Location": Object {
+      "Properties": {
+        "ArtifactStore": {
+          "Location": {
             "Ref": "HeseInfraPipelineArtifactsBucket79D993E5",
           },
           "Type": "S3",
         },
         "RestartExecutionOnUpdate": true,
-        "RoleArn": Object {
-          "Fn::GetAtt": Array [
+        "RoleArn": {
+          "Fn::GetAtt": [
             "HeseInfraPipelineRole42FEB153",
             "Arn",
           ],
         },
-        "Stages": Array [
-          Object {
-            "Actions": Array [
-              Object {
-                "ActionTypeId": Object {
+        "Stages": [
+          {
+            "Actions": [
+              {
+                "ActionTypeId": {
                   "Category": "Source",
                   "Owner": "AWS",
                   "Provider": "CodeStarSourceConnection",
                   "Version": "1",
                 },
-                "Configuration": Object {
+                "Configuration": {
                   "BranchName": "master",
                   "ConnectionArn": "arn:aws:codestar-connections:eu-west-1:872821666058:connection/2176abff-fac4-4c5d-87e8-0cc53551ab98",
                   "FullRepositoryId": "markusl/hese-app",
                 },
                 "Name": "markusl_hese-app",
-                "OutputArtifacts": Array [
-                  Object {
+                "OutputArtifacts": [
+                  {
                     "Name": "markusl_hese_app_Source",
                   },
                 ],
-                "RoleArn": Object {
-                  "Fn::GetAtt": Array [
+                "RoleArn": {
+                  "Fn::GetAtt": [
                     "HeseInfraPipelineSourcemarkuslheseappCodePipelineActionRole27EDF73B",
                     "Arn",
                   ],
@@ -61,34 +61,34 @@ Object {
             ],
             "Name": "Source",
           },
-          Object {
-            "Actions": Array [
-              Object {
-                "ActionTypeId": Object {
+          {
+            "Actions": [
+              {
+                "ActionTypeId": {
                   "Category": "Build",
                   "Owner": "AWS",
                   "Provider": "CodeBuild",
                   "Version": "1",
                 },
-                "Configuration": Object {
+                "Configuration": {
                   "EnvironmentVariables": "[{"name":"_PROJECT_CONFIG_HASH","type":"PLAINTEXT","value":"994bd2ad49e1f4d1cc571909187035773d84554975a5a25410ff34ef5dbd03b2"}]",
-                  "ProjectName": Object {
+                  "ProjectName": {
                     "Ref": "HeseInfraPipelineBuildSynthCdkBuildProjectAD5CA4AD",
                   },
                 },
-                "InputArtifacts": Array [
-                  Object {
+                "InputArtifacts": [
+                  {
                     "Name": "markusl_hese_app_Source",
                   },
                 ],
                 "Name": "Synth",
-                "OutputArtifacts": Array [
-                  Object {
+                "OutputArtifacts": [
+                  {
                     "Name": "Synth_Output",
                   },
                 ],
-                "RoleArn": Object {
-                  "Fn::GetAtt": Array [
+                "RoleArn": {
+                  "Fn::GetAtt": [
                     "HeseInfraPipelineCodeBuildActionRole5463EFD7",
                     "Arn",
                   ],
@@ -98,29 +98,29 @@ Object {
             ],
             "Name": "Build",
           },
-          Object {
-            "Actions": Array [
-              Object {
-                "ActionTypeId": Object {
+          {
+            "Actions": [
+              {
+                "ActionTypeId": {
                   "Category": "Build",
                   "Owner": "AWS",
                   "Provider": "CodeBuild",
                   "Version": "1",
                 },
-                "Configuration": Object {
+                "Configuration": {
                   "EnvironmentVariables": "[{"name":"_PROJECT_CONFIG_HASH","type":"PLAINTEXT","value":"c302495089e029880b6057af1b45e7ba2ecd996ed4944c2a9238447daed4a388"}]",
-                  "ProjectName": Object {
+                  "ProjectName": {
                     "Ref": "HeseInfraPipelineUpdatePipelineSelfMutationD83C5804",
                   },
                 },
-                "InputArtifacts": Array [
-                  Object {
+                "InputArtifacts": [
+                  {
                     "Name": "Synth_Output",
                   },
                 ],
                 "Name": "SelfMutate",
-                "RoleArn": Object {
-                  "Fn::GetAtt": Array [
+                "RoleArn": {
+                  "Fn::GetAtt": [
                     "HeseInfraPipelineCodeBuildActionRole5463EFD7",
                     "Arn",
                   ],
@@ -134,19 +134,19 @@ Object {
       },
       "Type": "AWS::CodePipeline::Pipeline",
     },
-    "HeseInfraPipelineArtifactsBucket79D993E5": Object {
+    "HeseInfraPipelineArtifactsBucket79D993E5": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
-        "BucketEncryption": Object {
-          "ServerSideEncryptionConfiguration": Array [
-            Object {
-              "ServerSideEncryptionByDefault": Object {
+      "Properties": {
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "ServerSideEncryptionByDefault": {
                 "SSEAlgorithm": "aws:kms",
               },
             },
           ],
         },
-        "PublicAccessBlockConfiguration": Object {
+        "PublicAccessBlockConfiguration": {
           "BlockPublicAcls": true,
           "BlockPublicPolicy": true,
           "IgnorePublicAcls": true,
@@ -156,37 +156,37 @@ Object {
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "HeseInfraPipelineArtifactsBucketPolicyEFC8C935": Object {
-      "Properties": Object {
-        "Bucket": Object {
+    "HeseInfraPipelineArtifactsBucketPolicyEFC8C935": {
+      "Properties": {
+        "Bucket": {
           "Ref": "HeseInfraPipelineArtifactsBucket79D993E5",
         },
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "s3:*",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:SecureTransport": "false",
                 },
               },
               "Effect": "Deny",
-              "Principal": Object {
+              "Principal": {
                 "AWS": "*",
               },
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "HeseInfraPipelineArtifactsBucket79D993E5",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "HeseInfraPipelineArtifactsBucket79D993E5",
                           "Arn",
                         ],
@@ -203,30 +203,30 @@ Object {
       },
       "Type": "AWS::S3::BucketPolicy",
     },
-    "HeseInfraPipelineBuildSynthCdkBuildProjectAD5CA4AD": Object {
-      "Properties": Object {
-        "Artifacts": Object {
+    "HeseInfraPipelineBuildSynthCdkBuildProjectAD5CA4AD": {
+      "Properties": {
+        "Artifacts": {
           "Type": "CODEPIPELINE",
         },
-        "Cache": Object {
+        "Cache": {
           "Type": "NO_CACHE",
         },
         "Description": "Pipeline step infra/Pipeline/Build/Synth",
         "EncryptionKey": "alias/aws/s3",
-        "Environment": Object {
+        "Environment": {
           "ComputeType": "BUILD_GENERAL1_SMALL",
           "Image": "aws/codebuild/standard:5.0",
           "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
         },
-        "ServiceRole": Object {
-          "Fn::GetAtt": Array [
+        "ServiceRole": {
+          "Fn::GetAtt": [
             "HeseInfraPipelineBuildSynthCdkBuildProjectRoleAA3DC00D",
             "Arn",
           ],
         },
-        "Source": Object {
+        "Source": {
           "BuildSpec": "{
   "version": "0.2",
   "phases": {
@@ -249,14 +249,14 @@ Object {
       },
       "Type": "AWS::CodeBuild::Project",
     },
-    "HeseInfraPipelineBuildSynthCdkBuildProjectRoleAA3DC00D": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "HeseInfraPipelineBuildSynthCdkBuildProjectRoleAA3DC00D": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "codebuild.amazonaws.com",
               },
             },
@@ -266,59 +266,59 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "HeseInfraPipelineBuildSynthCdkBuildProjectRoleDefaultPolicyF237693C": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+    "HeseInfraPipelineBuildSynthCdkBuildProjectRoleDefaultPolicyF237693C": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "logs:CreateLogGroup",
                 "logs:CreateLogStream",
                 "logs:PutLogEvents",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::Join": Array [
+              "Resource": [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
+                    [
                       "arn:",
-                      Object {
+                      {
                         "Ref": "AWS::Partition",
                       },
                       ":logs:",
-                      Object {
+                      {
                         "Ref": "AWS::Region",
                       },
                       ":",
-                      Object {
+                      {
                         "Ref": "AWS::AccountId",
                       },
                       ":log-group:/aws/codebuild/",
-                      Object {
+                      {
                         "Ref": "HeseInfraPipelineBuildSynthCdkBuildProjectAD5CA4AD",
                       },
                     ],
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
+                    [
                       "arn:",
-                      Object {
+                      {
                         "Ref": "AWS::Partition",
                       },
                       ":logs:",
-                      Object {
+                      {
                         "Ref": "AWS::Region",
                       },
                       ":",
-                      Object {
+                      {
                         "Ref": "AWS::AccountId",
                       },
                       ":log-group:/aws/codebuild/",
-                      Object {
+                      {
                         "Ref": "HeseInfraPipelineBuildSynthCdkBuildProjectAD5CA4AD",
                       },
                       ":*",
@@ -327,8 +327,8 @@ Object {
                 },
               ],
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "codebuild:CreateReportGroup",
                 "codebuild:CreateReport",
                 "codebuild:UpdateReport",
@@ -336,24 +336,24 @@ Object {
                 "codebuild:BatchPutCodeCoverages",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
+              "Resource": {
+                "Fn::Join": [
                   "",
-                  Array [
+                  [
                     "arn:",
-                    Object {
+                    {
                       "Ref": "AWS::Partition",
                     },
                     ":codebuild:",
-                    Object {
+                    {
                       "Ref": "AWS::Region",
                     },
                     ":",
-                    Object {
+                    {
                       "Ref": "AWS::AccountId",
                     },
                     ":report-group/",
-                    Object {
+                    {
                       "Ref": "HeseInfraPipelineBuildSynthCdkBuildProjectAD5CA4AD",
                     },
                     "-*",
@@ -361,8 +361,8 @@ Object {
                 ],
               },
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "s3:GetObject*",
                 "s3:GetBucket*",
                 "s3:List*",
@@ -375,19 +375,19 @@ Object {
                 "s3:Abort*",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "HeseInfraPipelineArtifactsBucket79D993E5",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "HeseInfraPipelineArtifactsBucket79D993E5",
                           "Arn",
                         ],
@@ -402,37 +402,37 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "HeseInfraPipelineBuildSynthCdkBuildProjectRoleDefaultPolicyF237693C",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "HeseInfraPipelineBuildSynthCdkBuildProjectRoleAA3DC00D",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "HeseInfraPipelineCodeBuildActionRole5463EFD7": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "HeseInfraPipelineCodeBuildActionRole5463EFD7": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
-              "Condition": Object {
-                "Bool": Object {
+              "Condition": {
+                "Bool": {
                   "aws:ViaAWSService": "codepipeline.amazonaws.com",
                 },
               },
               "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::Join": Array [
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
                     "",
-                    Array [
+                    [
                       "arn:",
-                      Object {
+                      {
                         "Ref": "AWS::Partition",
                       },
                       ":iam::",
-                      Object {
+                      {
                         "Ref": "AWS::AccountId",
                       },
                       ":root",
@@ -447,33 +447,33 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "HeseInfraPipelineCodeBuildActionRoleDefaultPolicyE2B3FC80": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+    "HeseInfraPipelineCodeBuildActionRoleDefaultPolicyE2B3FC80": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "codebuild:BatchGetBuilds",
                 "codebuild:StartBuild",
                 "codebuild:StopBuild",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "HeseInfraPipelineBuildSynthCdkBuildProjectAD5CA4AD",
                   "Arn",
                 ],
               },
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "codebuild:BatchGetBuilds",
                 "codebuild:StartBuild",
                 "codebuild:StopBuild",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "HeseInfraPipelineUpdatePipelineSelfMutationD83C5804",
                   "Arn",
                 ],
@@ -483,22 +483,22 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "HeseInfraPipelineCodeBuildActionRoleDefaultPolicyE2B3FC80",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "HeseInfraPipelineCodeBuildActionRole5463EFD7",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "HeseInfraPipelineRole42FEB153": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "HeseInfraPipelineRole42FEB153": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "codepipeline.amazonaws.com",
               },
             },
@@ -508,12 +508,12 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "HeseInfraPipelineRoleDefaultPolicy9CD0A2E3": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+    "HeseInfraPipelineRoleDefaultPolicy9CD0A2E3": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "s3:GetObject*",
                 "s3:GetBucket*",
                 "s3:List*",
@@ -526,19 +526,19 @@ Object {
                 "s3:Abort*",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "HeseInfraPipelineArtifactsBucket79D993E5",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "HeseInfraPipelineArtifactsBucket79D993E5",
                           "Arn",
                         ],
@@ -549,21 +549,21 @@ Object {
                 },
               ],
             },
-            Object {
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "HeseInfraPipelineSourcemarkuslheseappCodePipelineActionRole27EDF73B",
                   "Arn",
                 ],
               },
             },
-            Object {
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "HeseInfraPipelineCodeBuildActionRole5463EFD7",
                   "Arn",
                 ],
@@ -573,32 +573,32 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "HeseInfraPipelineRoleDefaultPolicy9CD0A2E3",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "HeseInfraPipelineRole42FEB153",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "HeseInfraPipelineSourcemarkuslheseappCodePipelineActionRole27EDF73B": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "HeseInfraPipelineSourcemarkuslheseappCodePipelineActionRole27EDF73B": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
-                "AWS": Object {
-                  "Fn::Join": Array [
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
                     "",
-                    Array [
+                    [
                       "arn:",
-                      Object {
+                      {
                         "Ref": "AWS::Partition",
                       },
                       ":iam::",
-                      Object {
+                      {
                         "Ref": "AWS::AccountId",
                       },
                       ":root",
@@ -613,17 +613,17 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "HeseInfraPipelineSourcemarkuslheseappCodePipelineActionRoleDefaultPolicy1B879BE0": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "HeseInfraPipelineSourcemarkuslheseappCodePipelineActionRoleDefaultPolicy1B879BE0": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "codestar-connections:UseConnection",
               "Effect": "Allow",
               "Resource": "arn:aws:codestar-connections:eu-west-1:872821666058:connection/2176abff-fac4-4c5d-87e8-0cc53551ab98",
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "s3:GetObject*",
                 "s3:GetBucket*",
                 "s3:List*",
@@ -636,19 +636,19 @@ Object {
                 "s3:Abort*",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "HeseInfraPipelineArtifactsBucket79D993E5",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "HeseInfraPipelineArtifactsBucket79D993E5",
                           "Arn",
                         ],
@@ -659,18 +659,18 @@ Object {
                 },
               ],
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "s3:PutObjectAcl",
                 "s3:PutObjectVersionAcl",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
+              "Resource": {
+                "Fn::Join": [
                   "",
-                  Array [
-                    Object {
-                      "Fn::GetAtt": Array [
+                  [
+                    {
+                      "Fn::GetAtt": [
                         "HeseInfraPipelineArtifactsBucket79D993E5",
                         "Arn",
                       ],
@@ -684,38 +684,38 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "HeseInfraPipelineSourcemarkuslheseappCodePipelineActionRoleDefaultPolicy1B879BE0",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "HeseInfraPipelineSourcemarkuslheseappCodePipelineActionRole27EDF73B",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "HeseInfraPipelineUpdatePipelineSelfMutationD83C5804": Object {
-      "Properties": Object {
-        "Artifacts": Object {
+    "HeseInfraPipelineUpdatePipelineSelfMutationD83C5804": {
+      "Properties": {
+        "Artifacts": {
           "Type": "CODEPIPELINE",
         },
-        "Cache": Object {
+        "Cache": {
           "Type": "NO_CACHE",
         },
         "Description": "Pipeline step infra/Pipeline/UpdatePipeline/SelfMutate",
         "EncryptionKey": "alias/aws/s3",
-        "Environment": Object {
+        "Environment": {
           "ComputeType": "BUILD_GENERAL1_SMALL",
           "Image": "aws/codebuild/standard:5.0",
           "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
         },
-        "ServiceRole": Object {
-          "Fn::GetAtt": Array [
+        "ServiceRole": {
+          "Fn::GetAtt": [
             "HeseInfraPipelineUpdatePipelineSelfMutationRoleA055CB95",
             "Arn",
           ],
         },
-        "Source": Object {
+        "Source": {
           "BuildSpec": "{
   "version": "0.2",
   "phases": {
@@ -736,14 +736,14 @@ Object {
       },
       "Type": "AWS::CodeBuild::Project",
     },
-    "HeseInfraPipelineUpdatePipelineSelfMutationRoleA055CB95": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "HeseInfraPipelineUpdatePipelineSelfMutationRoleA055CB95": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "codebuild.amazonaws.com",
               },
             },
@@ -753,59 +753,59 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "HeseInfraPipelineUpdatePipelineSelfMutationRoleDefaultPolicy4466AA5D": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+    "HeseInfraPipelineUpdatePipelineSelfMutationRoleDefaultPolicy4466AA5D": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "logs:CreateLogGroup",
                 "logs:CreateLogStream",
                 "logs:PutLogEvents",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::Join": Array [
+              "Resource": [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
+                    [
                       "arn:",
-                      Object {
+                      {
                         "Ref": "AWS::Partition",
                       },
                       ":logs:",
-                      Object {
+                      {
                         "Ref": "AWS::Region",
                       },
                       ":",
-                      Object {
+                      {
                         "Ref": "AWS::AccountId",
                       },
                       ":log-group:/aws/codebuild/",
-                      Object {
+                      {
                         "Ref": "HeseInfraPipelineUpdatePipelineSelfMutationD83C5804",
                       },
                     ],
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
+                    [
                       "arn:",
-                      Object {
+                      {
                         "Ref": "AWS::Partition",
                       },
                       ":logs:",
-                      Object {
+                      {
                         "Ref": "AWS::Region",
                       },
                       ":",
-                      Object {
+                      {
                         "Ref": "AWS::AccountId",
                       },
                       ":log-group:/aws/codebuild/",
-                      Object {
+                      {
                         "Ref": "HeseInfraPipelineUpdatePipelineSelfMutationD83C5804",
                       },
                       ":*",
@@ -814,8 +814,8 @@ Object {
                 },
               ],
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "codebuild:CreateReportGroup",
                 "codebuild:CreateReport",
                 "codebuild:UpdateReport",
@@ -823,24 +823,24 @@ Object {
                 "codebuild:BatchPutCodeCoverages",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
+              "Resource": {
+                "Fn::Join": [
                   "",
-                  Array [
+                  [
                     "arn:",
-                    Object {
+                    {
                       "Ref": "AWS::Partition",
                     },
                     ":codebuild:",
-                    Object {
+                    {
                       "Ref": "AWS::Region",
                     },
                     ":",
-                    Object {
+                    {
                       "Ref": "AWS::AccountId",
                     },
                     ":report-group/",
-                    Object {
+                    {
                       "Ref": "HeseInfraPipelineUpdatePipelineSelfMutationD83C5804",
                     },
                     "-*",
@@ -848,11 +848,11 @@ Object {
                 ],
               },
             },
-            Object {
+            {
               "Action": "sts:AssumeRole",
-              "Condition": Object {
-                "ForAnyValue:StringEquals": Object {
-                  "iam:ResourceTag/aws-cdk:bootstrap-role": Array [
+              "Condition": {
+                "ForAnyValue:StringEquals": {
+                  "iam:ResourceTag/aws-cdk:bootstrap-role": [
                     "image-publishing",
                     "file-publishing",
                     "deploy",
@@ -860,12 +860,12 @@ Object {
                 },
               },
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
+              "Resource": {
+                "Fn::Join": [
                   "",
-                  Array [
+                  [
                     "arn:*:iam::",
-                    Object {
+                    {
                       "Ref": "AWS::AccountId",
                     },
                     ":role/*",
@@ -873,36 +873,36 @@ Object {
                 ],
               },
             },
-            Object {
+            {
               "Action": "cloudformation:DescribeStacks",
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
+            {
               "Action": "s3:ListBucket",
               "Effect": "Allow",
               "Resource": "*",
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "s3:GetObject*",
                 "s3:GetBucket*",
                 "s3:List*",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "HeseInfraPipelineArtifactsBucket79D993E5",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "HeseInfraPipelineArtifactsBucket79D993E5",
                           "Arn",
                         ],
@@ -917,25 +917,25 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "HeseInfraPipelineUpdatePipelineSelfMutationRoleDefaultPolicy4466AA5D",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "HeseInfraPipelineUpdatePipelineSelfMutationRoleA055CB95",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "HeseStatus76E9EA78": Object {
+    "HeseStatus76E9EA78": {
       "DeletionPolicy": "Retain",
-      "Properties": Object {
+      "Properties": {
         "BucketName": "hese-status",
-        "CorsConfiguration": Object {
-          "CorsRules": Array [
-            Object {
-              "AllowedMethods": Array [
+        "CorsConfiguration": {
+          "CorsRules": [
+            {
+              "AllowedMethods": [
                 "GET",
               ],
-              "AllowedOrigins": Array [
+              "AllowedOrigins": [
                 "*",
               ],
             },
@@ -945,63 +945,63 @@ Object {
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "HeseStatusUpdate824FD175": Object {
-      "DependsOn": Array [
+    "HeseStatusUpdate824FD175": {
+      "DependsOn": [
         "HeseStatusUpdateServiceRoleDefaultPolicy17EFE0D5",
         "HeseStatusUpdateServiceRoleBBBE7064",
       ],
-      "Properties": Object {
-        "Architectures": Array [
+      "Properties": {
+        "Architectures": [
           "arm64",
         ],
-        "Code": Object {
-          "S3Bucket": Object {
+        "Code": {
+          "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
           "S3Key": "[HASH REMOVED].zip",
         },
-        "Environment": Object {
-          "Variables": Object {
+        "Environment": {
+          "Variables": {
             "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-            "BUCKET_NAME": Object {
+            "BUCKET_NAME": {
               "Ref": "HeseStatus76E9EA78",
             },
           },
         },
         "Handler": "index.handler",
         "MemorySize": 256,
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "HeseStatusUpdateServiceRoleBBBE7064",
             "Arn",
           ],
         },
-        "Runtime": "nodejs16.x",
+        "Runtime": "nodejs18.x",
         "Timeout": 60,
       },
       "Type": "AWS::Lambda::Function",
     },
-    "HeseStatusUpdateServiceRoleBBBE7064": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "HeseStatusUpdateServiceRoleBBBE7064": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
               "",
-              Array [
+              [
                 "arn:",
-                Object {
+                {
                   "Ref": "AWS::Partition",
                 },
                 ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
@@ -1012,12 +1012,12 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "HeseStatusUpdateServiceRoleDefaultPolicy17EFE0D5": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+    "HeseStatusUpdateServiceRoleDefaultPolicy17EFE0D5": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "s3:GetObject*",
                 "s3:GetBucket*",
                 "s3:List*",
@@ -1030,19 +1030,19 @@ Object {
                 "s3:Abort*",
               ],
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "HeseStatus76E9EA78",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "HeseStatus76E9EA78",
                           "Arn",
                         ],
@@ -1053,18 +1053,18 @@ Object {
                 },
               ],
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "s3:PutObjectAcl",
                 "s3:PutObjectVersionAcl",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
+              "Resource": {
+                "Fn::Join": [
                   "",
-                  Array [
-                    Object {
-                      "Fn::GetAtt": Array [
+                  [
+                    {
+                      "Fn::GetAtt": [
                         "HeseStatus76E9EA78",
                         "Arn",
                       ],
@@ -1078,17 +1078,17 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "HeseStatusUpdateServiceRoleDefaultPolicy17EFE0D5",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "HeseStatusUpdateServiceRoleBBBE7064",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "HttpApiDefaultStage3EEB07D6": Object {
-      "Properties": Object {
-        "ApiId": Object {
+    "HttpApiDefaultStage3EEB07D6": {
+      "Properties": {
+        "ApiId": {
           "Ref": "HttpApiF5A9A8A7",
         },
         "AutoDeploy": true,
@@ -1096,26 +1096,26 @@ Object {
       },
       "Type": "AWS::ApiGatewayV2::Stage",
     },
-    "HttpApiF5A9A8A7": Object {
-      "Properties": Object {
+    "HttpApiF5A9A8A7": {
+      "Properties": {
         "Name": "HttpApi",
         "ProtocolType": "HTTP",
       },
       "Type": "AWS::ApiGatewayV2::Api",
     },
-    "HttpApiGETstatus15B35F18": Object {
-      "Properties": Object {
-        "ApiId": Object {
+    "HttpApiGETstatus15B35F18": {
+      "Properties": {
+        "ApiId": {
           "Ref": "HttpApiF5A9A8A7",
         },
         "AuthorizationType": "NONE",
         "RouteKey": "GET /status",
-        "Target": Object {
-          "Fn::Join": Array [
+        "Target": {
+          "Fn::Join": [
             "",
-            Array [
+            [
               "integrations/",
-              Object {
+              {
                 "Ref": "HttpApiGETstatusintegration1E1875D2",
               },
             ],
@@ -1124,14 +1124,14 @@ Object {
       },
       "Type": "AWS::ApiGatewayV2::Route",
     },
-    "HttpApiGETstatusintegration1E1875D2": Object {
-      "Properties": Object {
-        "ApiId": Object {
+    "HttpApiGETstatusintegration1E1875D2": {
+      "Properties": {
+        "ApiId": {
           "Ref": "HttpApiF5A9A8A7",
         },
         "IntegrationType": "AWS_PROXY",
-        "IntegrationUri": Object {
-          "Fn::GetAtt": Array [
+        "IntegrationUri": {
+          "Fn::GetAtt": [
             "HeseStatusUpdate824FD175",
             "Arn",
           ],
@@ -1140,34 +1140,34 @@ Object {
       },
       "Type": "AWS::ApiGatewayV2::Integration",
     },
-    "HttpApiGETstatusintegrationPermissionF7424F40": Object {
-      "Properties": Object {
+    "HttpApiGETstatusintegrationPermissionF7424F40": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "HeseStatusUpdate824FD175",
             "Arn",
           ],
         },
         "Principal": "apigateway.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::Join": Array [
+        "SourceArn": {
+          "Fn::Join": [
             "",
-            Array [
+            [
               "arn:",
-              Object {
+              {
                 "Ref": "AWS::Partition",
               },
               ":execute-api:",
-              Object {
+              {
                 "Ref": "AWS::Region",
               },
               ":",
-              Object {
+              {
                 "Ref": "AWS::AccountId",
               },
               ":",
-              Object {
+              {
                 "Ref": "HttpApiF5A9A8A7",
               },
               "/*/*/status",
@@ -1177,14 +1177,14 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "Rule4C995B7F": Object {
-      "Properties": Object {
+    "Rule4C995B7F": {
+      "Properties": {
         "ScheduleExpression": "cron(0/15 * * * ? *)",
         "State": "ENABLED",
-        "Targets": Array [
-          Object {
-            "Arn": Object {
-              "Fn::GetAtt": Array [
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
                 "HeseStatusUpdate824FD175",
                 "Arn",
               ],
@@ -1195,18 +1195,18 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "RuleAllowEventRuleinfraHeseStatusUpdate76B553567F75FDCA": Object {
-      "Properties": Object {
+    "RuleAllowEventRuleinfraHeseStatusUpdate76B553567F75FDCA": {
+      "Properties": {
         "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
+        "FunctionName": {
+          "Fn::GetAtt": [
             "HeseStatusUpdate824FD175",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
+        "SourceArn": {
+          "Fn::GetAtt": [
             "Rule4C995B7F",
             "Arn",
           ],
@@ -1214,28 +1214,28 @@ Object {
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "hesereactappC861EE5E": Object {
-      "Properties": Object {
-        "BasicAuthConfig": Object {
+    "hesereactappC861EE5E": {
+      "Properties": {
+        "BasicAuthConfig": {
           "EnableBasicAuth": false,
         },
-        "IAMServiceRole": Object {
-          "Fn::GetAtt": Array [
+        "IAMServiceRole": {
+          "Fn::GetAtt": [
             "hesereactappRoleC1FB01B7",
             "Arn",
           ],
         },
         "Name": "hese-react-app",
-        "OauthToken": Object {
-          "Fn::Join": Array [
+        "OauthToken": {
+          "Fn::Join": [
             "",
-            Array [
+            [
               "{{resolve:secretsmanager:arn:aws:secretsmanager:",
-              Object {
+              {
                 "Ref": "AWS::Region",
               },
               ":",
-              Object {
+              {
                 "Ref": "AWS::AccountId",
               },
               ":secret:GITHUB_OAUTH_TOKEN-zSOXUo:SecretString:::}}",
@@ -1246,14 +1246,14 @@ Object {
       },
       "Type": "AWS::Amplify::App",
     },
-    "hesereactappRoleC1FB01B7": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "hesereactappRoleC1FB01B7": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "amplify.amazonaws.com",
               },
             },
@@ -1263,10 +1263,10 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "hesereactappmaster53520226": Object {
-      "Properties": Object {
-        "AppId": Object {
-          "Fn::GetAtt": Array [
+    "hesereactappmaster53520226": {
+      "Properties": {
+        "AppId": {
+          "Fn::GetAtt": [
             "hesereactappC861EE5E",
             "AppId",
           ],
@@ -1277,30 +1277,30 @@ Object {
       },
       "Type": "AWS::Amplify::Branch",
     },
-    "hesereactappolmibeCBE732A4": Object {
-      "Properties": Object {
-        "AppId": Object {
-          "Fn::GetAtt": Array [
+    "hesereactappolmibeCBE732A4": {
+      "Properties": {
+        "AppId": {
+          "Fn::GetAtt": [
             "hesereactappC861EE5E",
             "AppId",
           ],
         },
-        "AutoSubDomainCreationPatterns": Array [
+        "AutoSubDomainCreationPatterns": [
           "*",
           "pr*",
         ],
-        "AutoSubDomainIAMRole": Object {
-          "Fn::GetAtt": Array [
+        "AutoSubDomainIAMRole": {
+          "Fn::GetAtt": [
             "hesereactappRoleC1FB01B7",
             "Arn",
           ],
         },
         "DomainName": "olmi.be",
         "EnableAutoSubDomain": false,
-        "SubDomainSettings": Array [
-          Object {
-            "BranchName": Object {
-              "Fn::GetAtt": Array [
+        "SubDomainSettings": [
+          {
+            "BranchName": {
+              "Fn::GetAtt": [
                 "hesereactappmaster53520226",
                 "BranchName",
               ],
@@ -1312,22 +1312,22 @@ Object {
       "Type": "AWS::Amplify::Domain",
     },
   },
-  "Rules": Object {
-    "CheckBootstrapVersion": Object {
-      "Assertions": Array [
-        Object {
-          "Assert": Object {
-            "Fn::Not": Array [
-              Object {
-                "Fn::Contains": Array [
-                  Array [
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
                     "1",
                     "2",
                     "3",
                     "4",
                     "5",
                   ],
-                  Object {
+                  {
                     "Ref": "BootstrapVersion",
                   },
                 ],
