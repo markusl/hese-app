@@ -4,6 +4,7 @@ import {
   aws_s3 as s3,
   aws_lambda as lambda,
   aws_lambda_nodejs as lambda_nodejs,
+  aws_codebuild as codebuild,
   aws_events as events,
   aws_events_targets as targets,
   pipelines,
@@ -14,7 +15,7 @@ import * as apigw2_integrations from '@aws-cdk/aws-apigatewayv2-integrations-alp
 
 const everyFifteenMinutes = events.Schedule.expression('cron(0/15 * * * ? *)');
 
-export class HeseInfraStack extends cdk.Stack {
+export default class HeseInfraStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
@@ -30,9 +31,16 @@ export class HeseInfraStack extends cdk.Stack {
 
     new pipelines.CodePipeline(this, 'HeseInfraPipeline', {
       crossAccountKeys: false,
+      codeBuildDefaults: {
+        buildEnvironment: {
+          buildImage: codebuild.LinuxBuildImage.STANDARD_6_0,
+          computeType: codebuild.ComputeType.SMALL,
+        },
+      },
       synth: new pipelines.ShellStep('Synth', {
         input,
         commands: [
+          'n 18',
           'cd hese-infra',
           'npm ci',
           'npm run test',
@@ -66,6 +74,7 @@ export class HeseInfraStack extends cdk.Stack {
       bundling: {
         minify: true,
         externalModules: ['@aws-sdk/*'],
+        format: lambda_nodejs.OutputFormat.ESM,
       },
       memorySize: 256,
       timeout: cdk.Duration.minutes(1),

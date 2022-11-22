@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Product, UnavailabileProducts, RestaurantInfo } from './heseTypes';
 import { allRestaurants } from './restaurants';
 
@@ -25,9 +24,9 @@ const headers = {
 const getAvailability = async (restaurant: RestaurantInfo, productId: string) => {
   const url = unavailabilitiesApi + restaurant.id;
   try {
-    const unavailabilities = (await axios.get<UnavailabileProducts>(url, {
+    const unavailabilities = await (await fetch(url, {
       headers,
-    })).data;
+    })).json() as UnavailabileProducts;
     const unavailabilityItem = Object.keys(unavailabilities.products).find((k) => k === productId);
     const isAvailable = unavailabilityItem ? !unavailabilities.products[productId].temporarilyOutOfStock : true;
     const isInSelection = unavailabilityItem ? !unavailabilities.products[productId].notInSelection : true;
@@ -49,9 +48,9 @@ const getAvailability = async (restaurant: RestaurantInfo, productId: string) =>
 // Collects the availabilities for a given product across all given restaurants
 const getAvailabilities = async (restaurants: RestaurantInfo[], productId: string) => {
   const url = productApi + productId;
-  const products = (await axios.get<[Product]>(url, {
+  const products = await (await fetch(url, {
     headers
-  })).data;
+  })).json() as [Product];
   const product = products[0];
   return await Promise.all(restaurants.map(async (restaurant) => {
     const { isClosed, isAvailable, isInSelection } = await getAvailability(restaurant, productId);

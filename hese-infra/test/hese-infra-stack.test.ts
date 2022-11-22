@@ -1,6 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
-import { HeseInfraStack } from '../lib/hese-infra-stack';
+import HeseInfraStack from '../lib/hese-infra-stack';
 import { snapshotSerializer } from './util';
 
 expect.addSnapshotSerializer(snapshotSerializer);

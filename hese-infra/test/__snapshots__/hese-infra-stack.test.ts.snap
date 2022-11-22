@@ -71,7 +71,7 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
                   "Version": "1",
                 },
                 "Configuration": {
-                  "EnvironmentVariables": "[{"name":"_PROJECT_CONFIG_HASH","type":"PLAINTEXT","value":"994bd2ad49e1f4d1cc571909187035773d84554975a5a25410ff34ef5dbd03b2"}]",
+                  "EnvironmentVariables": "[{"name":"_PROJECT_CONFIG_HASH","type":"PLAINTEXT","value":"ee0a2f153bb45eab4eb13ff662979b709f76d0fce5aef5617438b691a082bcc7"}]",
                   "ProjectName": {
                     "Ref": "HeseInfraPipelineBuildSynthCdkBuildProjectAD5CA4AD",
                   },
@@ -108,7 +108,7 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
                   "Version": "1",
                 },
                 "Configuration": {
-                  "EnvironmentVariables": "[{"name":"_PROJECT_CONFIG_HASH","type":"PLAINTEXT","value":"c302495089e029880b6057af1b45e7ba2ecd996ed4944c2a9238447daed4a388"}]",
+                  "EnvironmentVariables": "[{"name":"_PROJECT_CONFIG_HASH","type":"PLAINTEXT","value":"9401333be5bc4058d56a73f9e1781d2e54d579ca3b256b6107c8d248957e1f02"}]",
                   "ProjectName": {
                     "Ref": "HeseInfraPipelineUpdatePipelineSelfMutationD83C5804",
                   },
@@ -215,7 +215,7 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
         "EncryptionKey": "alias/aws/s3",
         "Environment": {
           "ComputeType": "BUILD_GENERAL1_SMALL",
-          "Image": "aws/codebuild/standard:5.0",
+          "Image": "aws/codebuild/standard:6.0",
           "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
@@ -232,6 +232,7 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
   "phases": {
     "build": {
       "commands": [
+        "n 18",
         "cd hese-infra",
         "npm ci",
         "npm run test",
@@ -704,7 +705,7 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
         "EncryptionKey": "alias/aws/s3",
         "Environment": {
           "ComputeType": "BUILD_GENERAL1_SMALL",
-          "Image": "aws/codebuild/standard:5.0",
+          "Image": "aws/codebuild/standard:6.0",
           "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
