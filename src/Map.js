@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
-import mapboxgl from 'mapbox-gl';
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import mapboxgl from '!mapbox-gl';
 import './Map.css';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFya3VzbGluZHF2aXN0IiwiYSI6ImNpbmN0MWxydDAwNGx2a2x4ZTRrMzN4YmQifQ.EXA-WHgOonA8p9CA25N5Rg';
@@ -41,7 +42,7 @@ const renderRestaurant = (restaurant, map, onlyBroken, onlyWorking) => {
   }
 };
 
-const Map = () => {
+const Map = (props) => {
   const mapContainerRef = useRef(null);
 
   const [onlyBroken, setOnlyBroken] = useState(false);
@@ -55,12 +56,12 @@ const Map = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await (await fetch('https://hese-status.s3-eu-west-1.amazonaws.com/status.json')).json();
+      const result = await (await fetch(props.statusApi)).json();
       setData(result);
     };
 
     fetchData();
-  }, []);
+  }, [props]);
 
   // Initialize map when component mounts
   useEffect(() => {

@@ -22,11 +22,11 @@ export default class HeseInfraStack extends cdk.Stack {
     const repository = 'hese-app';
     const githubConfig = {
       owner: 'markusl',
-      oauthToken: cdk.SecretValue.secretsManager(`arn:aws:secretsmanager:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:secret:GITHUB_OAUTH_TOKEN-zSOXUo`),
+      oauthToken: cdk.SecretValue.secretsManager(`arn:aws:secretsmanager:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:secret:GITHUB_OAUTH_TOKEN-Qw9kGt`),
     };
     // Use a connection created using the AWS console to authenticate to GitHub
     const input = pipelines.CodePipelineSource.connection('markusl/hese-app', 'master', {
-      connectionArn: 'arn:aws:codestar-connections:eu-west-1:872821666058:connection/2176abff-fac4-4c5d-87e8-0cc53551ab98',
+      connectionArn: `arn:aws:codestar-connections:${cdk.Stack.of(this).region}:${cdk.Stack.of(this).account}:connection/2176abff-fac4-4c5d-87e8-0cc53551ab98`,
     });
 
     new pipelines.CodePipeline(this, 'HeseInfraPipeline', {
@@ -73,7 +73,6 @@ export default class HeseInfraStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_18_X,
       bundling: {
         minify: true,
-        externalModules: ['@aws-sdk/*'],
         format: lambda_nodejs.OutputFormat.ESM,
       },
       memorySize: 256,

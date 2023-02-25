@@ -41,7 +41,22 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
                 },
                 "Configuration": {
                   "BranchName": "master",
-                  "ConnectionArn": "arn:aws:codestar-connections:eu-west-1:872821666058:connection/2176abff-fac4-4c5d-87e8-0cc53551ab98",
+                  "ConnectionArn": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:codestar-connections:",
+                        {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":connection/2176abff-fac4-4c5d-87e8-0cc53551ab98",
+                      ],
+                    ],
+                  },
                   "FullRepositoryId": "markusl/hese-app",
                 },
                 "Name": "markusl_hese-app",
@@ -621,7 +636,22 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
             {
               "Action": "codestar-connections:UseConnection",
               "Effect": "Allow",
-              "Resource": "arn:aws:codestar-connections:eu-west-1:872821666058:connection/2176abff-fac4-4c5d-87e8-0cc53551ab98",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:codestar-connections:",
+                    {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":connection/2176abff-fac4-4c5d-87e8-0cc53551ab98",
+                  ],
+                ],
+              },
             },
             {
               "Action": [
@@ -1239,7 +1269,7 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
               {
                 "Ref": "AWS::AccountId",
               },
-              ":secret:GITHUB_OAUTH_TOKEN-zSOXUo:SecretString:::}}",
+              ":secret:GITHUB_OAUTH_TOKEN-Qw9kGt:SecretString:::}}",
             ],
           ],
         },
