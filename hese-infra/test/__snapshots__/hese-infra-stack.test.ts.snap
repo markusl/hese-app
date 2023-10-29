@@ -432,27 +432,12 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
           "Statement": [
             {
               "Action": "sts:AssumeRole",
-              "Condition": {
-                "Bool": {
-                  "aws:ViaAWSService": "codepipeline.amazonaws.com",
-                },
-              },
               "Effect": "Allow",
               "Principal": {
                 "AWS": {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":iam::",
-                      {
-                        "Ref": "AWS::AccountId",
-                      },
-                      ":root",
-                    ],
+                  "Fn::GetAtt": [
+                    "HeseInfraPipelineRole42FEB153",
+                    "Arn",
                   ],
                 },
               },
@@ -1273,6 +1258,7 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
             ],
           ],
         },
+        "Platform": "WEB",
         "Repository": "https://github.com/markusl/hese-app",
       },
       "Type": "AWS::Amplify::App",

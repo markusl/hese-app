@@ -12,7 +12,7 @@ const unavailabilitiesApi = 'https://app.hesburger.fi/api/v2/products/unavailabi
 const iceCreamItem = '61bcb34c-cf04-1031-8dbb-005056890043';
 
 // The Shake item selected for checking the status
-const shakeItem = '96a8ce92-856f-1029-8359-000f20f688bd';
+const shakeItem = 'c3c11e4c-3bab-1038-bf85-005056890043';
 
 // Minimum set of headers that the API works with
 const headers = {
