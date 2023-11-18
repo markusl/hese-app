@@ -1,6 +1,6 @@
 import { getHeseIceCreamStatusFinland } from '../lib/lambda/hese';
 
-jest.setTimeout(15000);
+jest.setTimeout(25000);
 
 test('getHeseIceCreamStatusFinland', async () => {
   const status = await getHeseIceCreamStatusFinland();
