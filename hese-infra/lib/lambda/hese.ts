@@ -8,6 +8,13 @@ const countryCodeFinland = '246';
 const productApi = 'https://app.hesburger.fi/api/v3/products?productId=';
 const unavailabilitiesApi = 'https://app.hesburger.fi/api/v2/products/unavailabilities?restaurantId=';
 
+/**
+ * curl 'https://app.hesburger.fi/api/v2/products/?restaurantId=116' -H "device-id: f2da6c10-13c1-449f-843e-913c64cec9ba" -H "user-agent: Hesburger/1.49.0 (191) (iOS; iOS iPhone 14.0.1; Scale/2.0; F4613)"
+ * curl 'https://app.hesburger.fi/api/v2/products?productId=ea4c3c82-2ab5-1034-bbcb-005056890043' -H "device-id: f2da6c10-13c1-449f-843e-913c64cec9ba" -H "user-agent: Hesburger/1.49.0 (191) (iOS; iOS iPhone 14.0.1; Scale/2.0; F4613)" 
+ * curl 'https://app.hesburger.fi/api/v2/products?countryCode=246' -H "device-id: f2da6c10-13c1-449f-843e-913c64cec9ba" -H "user-agent: Hesburger/1.49.0 (191) (iOS; iOS iPhone 14.0.1; Scale/2.0; F4613)" 
+ * curl 'https://app.hesburger.fi/api/v2/restaurants?countryCode=246' -H "device-id: f2da6c10-13c1-449f-843e-913c64cec9ba" -H "user-agent: Hesburger/1.49.0 (191) (iOS; iOS iPhone 14.0.1; Scale/2.0; F4613)" 
+ */
+
 // The Ice Cream item selected for checking the status
 const iceCreamItem = '61bcb34c-cf04-1031-8dbb-005056890043';
 

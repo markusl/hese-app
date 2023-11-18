@@ -1,5 +1,5 @@
 {
-  "app": "npx node --loader ts-node/esm bin/hese-infra.ts",
+  "app": "npx ts-node bin/hese-infra.ts",
   "context": {
   }
 }

@@ -7,11 +7,11 @@ import {
   aws_codebuild as codebuild,
   aws_events as events,
   aws_events_targets as targets,
+  aws_apigatewayv2 as apigw2,
+  aws_apigatewayv2_integrations as apigw2_integrations,
   pipelines,
 } from 'aws-cdk-lib';
 import * as amplify from '@aws-cdk/aws-amplify-alpha';
-import * as apigw2 from '@aws-cdk/aws-apigatewayv2-alpha';
-import * as apigw2_integrations from '@aws-cdk/aws-apigatewayv2-integrations-alpha';
 
 const everyFifteenMinutes = events.Schedule.expression('cron(0/15 * * * ? *)');
 
@@ -40,7 +40,7 @@ export default class HeseInfraStack extends cdk.Stack {
       synth: new pipelines.ShellStep('Synth', {
         input,
         commands: [
-          'n 20',
+          'n 18',
           'cd hese-infra',
           'npm ci',
           'npm run test',

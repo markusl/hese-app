@@ -86,7 +86,7 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
                   "Version": "1",
                 },
                 "Configuration": {
-                  "EnvironmentVariables": "[{"name":"_PROJECT_CONFIG_HASH","type":"PLAINTEXT","value":"d97537e5d14964cfc6d6890bb95a70c3d967e7019b0eb90e5c6f066668368363"}]",
+                  "EnvironmentVariables": "[{"name":"_PROJECT_CONFIG_HASH","type":"PLAINTEXT","value":"4678e59e3ae2c957a322077d5181eb87c7790b60923df9b19118e324b0c188fe"}]",
                   "ProjectName": {
                     "Ref": "HeseInfraPipelineBuildSynthCdkBuildProjectAD5CA4AD",
                   },
@@ -247,7 +247,7 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
   "phases": {
     "build": {
       "commands": [
-        "n 20",
+        "n 18",
         "cd hese-infra",
         "npm ci",
         "npm run test",
