@@ -86,7 +86,7 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
                   "Version": "1",
                 },
                 "Configuration": {
-                  "EnvironmentVariables": "[{"name":"_PROJECT_CONFIG_HASH","type":"PLAINTEXT","value":"ee0a2f153bb45eab4eb13ff662979b709f76d0fce5aef5617438b691a082bcc7"}]",
+                  "EnvironmentVariables": "[{"name":"_PROJECT_CONFIG_HASH","type":"PLAINTEXT","value":"d97537e5d14964cfc6d6890bb95a70c3d967e7019b0eb90e5c6f066668368363"}]",
                   "ProjectName": {
                     "Ref": "HeseInfraPipelineBuildSynthCdkBuildProjectAD5CA4AD",
                   },
@@ -123,7 +123,7 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
                   "Version": "1",
                 },
                 "Configuration": {
-                  "EnvironmentVariables": "[{"name":"_PROJECT_CONFIG_HASH","type":"PLAINTEXT","value":"9401333be5bc4058d56a73f9e1781d2e54d579ca3b256b6107c8d248957e1f02"}]",
+                  "EnvironmentVariables": "[{"name":"_PROJECT_CONFIG_HASH","type":"PLAINTEXT","value":"7cf8d089fc7cd92c9bf13bafeb66273ae6c7f631d474a7bea6d9ac2ddd0cfff1"}]",
                   "ProjectName": {
                     "Ref": "HeseInfraPipelineUpdatePipelineSelfMutationD83C5804",
                   },
@@ -230,7 +230,7 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
         "EncryptionKey": "alias/aws/s3",
         "Environment": {
           "ComputeType": "BUILD_GENERAL1_SMALL",
-          "Image": "aws/codebuild/standard:6.0",
+          "Image": "aws/codebuild/standard:7.0",
           "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
@@ -247,7 +247,7 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
   "phases": {
     "build": {
       "commands": [
-        "n 18",
+        "n 20",
         "cd hese-infra",
         "npm ci",
         "npm run test",
@@ -720,7 +720,7 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
         "EncryptionKey": "alias/aws/s3",
         "Environment": {
           "ComputeType": "BUILD_GENERAL1_SMALL",
-          "Image": "aws/codebuild/standard:6.0",
+          "Image": "aws/codebuild/standard:7.0",
           "ImagePullCredentialsType": "CODEBUILD",
           "PrivilegedMode": false,
           "Type": "LINUX_CONTAINER",
@@ -985,6 +985,9 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
           },
         },
         "Handler": "index.handler",
+        "LoggingConfig": {
+          "LogFormat": "JSON",
+        },
         "MemorySize": 256,
         "Role": {
           "Fn::GetAtt": [
@@ -992,7 +995,7 @@ exports[`HeseInfraStack synthetizes expected template 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs20.x",
         "Timeout": 60,
       },
       "Type": "AWS::Lambda::Function",

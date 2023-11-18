@@ -33,14 +33,14 @@ export default class HeseInfraStack extends cdk.Stack {
       crossAccountKeys: false,
       codeBuildDefaults: {
         buildEnvironment: {
-          buildImage: codebuild.LinuxBuildImage.STANDARD_6_0,
+          buildImage: codebuild.LinuxBuildImage.STANDARD_7_0,
           computeType: codebuild.ComputeType.SMALL,
         },
       },
       synth: new pipelines.ShellStep('Synth', {
         input,
         commands: [
-          'n 18',
+          'n 20',
           'cd hese-infra',
           'npm ci',
           'npm run test',
@@ -70,11 +70,12 @@ export default class HeseInfraStack extends cdk.Stack {
     });
 
     const heseStatusUpdateFunction = new lambda_nodejs.NodejsFunction(this, 'HeseStatusUpdate', {
-      runtime: lambda.Runtime.NODEJS_18_X,
+      runtime: lambda.Runtime.NODEJS_20_X,
       bundling: {
         minify: true,
         format: lambda_nodejs.OutputFormat.ESM,
       },
+      logFormat: lambda.LogFormat.JSON,
       memorySize: 256,
       timeout: cdk.Duration.minutes(1),
       architecture: lambda.Architecture.ARM_64,
